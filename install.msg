@@ -1,0 +1,9 @@
+Reading package lists...
+Building dependency tree...
+Reading state information...
+curl is already the newest version (7.58.0-2ubuntu3.17).
+wget is already the newest version (1.19.4-1ubuntu2.2).
+The following packages were automatically installed and are no longer required:
+  apache2-data libodbc1 ssl-cert
+Use 'apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 8 not upgraded.

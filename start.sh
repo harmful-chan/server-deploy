@@ -1,0 +1,1 @@
+$S systemctl start mongodb nginx 

@@ -1,0 +1,18 @@
+[Unit]
+Description=OpenLDAP Server Daemon
+After=syslog.target network-online.target
+Requires=network-online.target
+
+[Service]
+Environment="SLAPD_URLS=ldap:/// ldapi:/// ldaps:///" "SLAPD_OPTIONS=-F /etc/openldap/slapd.d"
+ExecStartPre=/usr/sbin/slaptest -n0 -F /etc/openldap/slapd.d -v
+ExecStart=/usr/libexec/slapd -u ldap -g ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS
+ExecReload=/bin/kill -s QUIT $MAINPID
+ExecReload=/usr/libexec/slapd -u ldap -g ldap -h ${SLAPD_URLS} $SLAPD_OPTIONS
+ExecStop=/bin/kill -s QUIT $MAINPID
+KillMode=control-group
+Restart=on-failure
+RestartSec=10s
+
+[Install]
+WantedBy=multi-user.target

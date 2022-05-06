@@ -1,0 +1,9 @@
+dn: dc=hans,dc=org
+objectclass: dcObject
+objectclass: organization
+o: Example Company
+dc: hans
+
+dn: cn=Manager,dc=hans,dc=org
+objectclass: organizationalRole
+cn: Manager
