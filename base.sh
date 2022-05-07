@@ -21,27 +21,37 @@ function e(){
 function info(){
     echo -e "\033[34m [INFO] \033[0m $@"
 }
-function preinstall(){
-    if [ x"$INSTALLER" == x ]; then
-        DistribuID=$(lsb_release -is)
-        if [ "$DistribuID" == "CentOS" ]; then
-            if [[ x"$INSTALLER" == x && -z "$SKIP_PACKAGE_REDIRECT" ]]; then
-                $S yum upgrade 
-            fi
-            INSTALLER=yum
-        elif [ "$DistribuID" == "Ubuntu" ]; then
-            if [[ x"$INSTALLER" == x && -z "$SKIP_PACKAGE_REDIRECT" ]]; then
-                $S apt-get update 
-            fi
-            INSTALLER=apt-get
-        else
-            echo "系统未能识别，Distributor ID:$DistribuID"
-            exit 1
-        fi
-
-        unset DistribuID
+function preinstall()
+{
+    DistribuID=$(lsb_release -is)
+    if [ "$DistribuID" == "CentOS" ]; then
+        preinstall_yum $@
+        INSTALLER=${INSTALLER:=yum}
+    elif [ "$DistribuID" == "Ubuntu" ]; then
+        preinstall_apt $@
+        INSTALLER=${INSTALLER:=apt-get}
+    else
+        echo "系统未能识别，Distributor ID:$DistribuID"
+        exit 1
     fi
-    $S $INSTALLER -y  install wget curl $@ >install.msg
+    unset DistribuID
+}
+
+function preinstall_apt()
+{
+    if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
+        $S apt-get -y  install $@
+    else
+        $S apt-get  install $@ >install.msg
+    fi
+}
+
+function preinstall_yum(){
+    if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
+        $S yum -y  install $@
+    else
+        $S yum -y  install $@ >install.msg
+    fi
 }
 
 function clean()

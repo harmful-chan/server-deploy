@@ -2,12 +2,6 @@
 
 source $(dirname $BASH_SOURCE)/../base.sh
 
-
-
-
-preinstall 
-
-
 e "MONGODB_INSTALL" "$MONGODB_INSTALL"
 if [ "$MONGODB_INSTALL" == "true" ]; then
     if [ ! -e $TAR_DIR/$MONGODB_NAME.tgz ]; then

@@ -3,7 +3,7 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
-preinstall gnupg2 ca-certificates lsb-release ubuntu-keyring
+preinstall ca-certificates lsb-release 
 
 e "NGINX_MAKE" "$NGINX_MAKE"
 if [ "$NGINX_MAKE" == "true" ]; then
@@ -15,9 +15,11 @@ if [ "$NGINX_MAKE" == "true" ]; then
     fi
     cd $TAR_DIR/$NGINX_NAME
     ./configure \
-        --pid-path=/usr/local/nginx/nginx.pid \
-        --with-http_ssl_module
+        --with-http_ssl_module \
+        --with-stream \
+        --with-stream_ssl_module
     make -j2 
+    cd -
 fi
 
 e "NGINX_INSTALL" "$NGINX_INSTALL"
