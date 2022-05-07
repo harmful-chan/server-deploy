@@ -3,7 +3,7 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
-preinstall ca-certificates 
+preinstall ca-certificates pcre-devel openssl openssl-devel
 
 e "NGINX_MAKE" "$NGINX_MAKE"
 if [ "$NGINX_MAKE" == "true" ]; then
