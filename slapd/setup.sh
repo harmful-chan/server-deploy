@@ -33,7 +33,7 @@ if [ "$LDAP_MAKE" == "true" ]; then
         git clone --depth 1 https://git.openldap.org/openldap/$LDAP_NAME.git $TAR_DIR/$LDAP_NAME
     fi
     cd $TAR_DIR/$LDAP_NAME
-    if [ "$OPENSSL_BUILD" == "true" ]; then
+    if [ "$LDAP_CONF_OPENSS" == "true" ]; then
         ./configure --prefix=/ CPPFLAGS="-I/usr/local/openssl/include"  LDFLAGS="-L/usr/local/openssl/lib"
     else
         ./configure --prefix=/
