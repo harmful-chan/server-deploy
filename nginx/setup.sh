@@ -3,7 +3,7 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
-preinstall ca-certificates lsb-release 
+preinstall ca-certificates 
 
 e "NGINX_MAKE" "$NGINX_MAKE"
 if [ "$NGINX_MAKE" == "true" ]; then
