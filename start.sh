@@ -1,1 +1,1 @@
-$S systemctl start mongodb nginx 
+$S systemctl start mongodb nginx slapd

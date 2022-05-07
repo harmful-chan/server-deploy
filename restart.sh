@@ -1,1 +1,1 @@
-$S systemctl restart mongodb nginx 
+$S systemctl restart mongodb nginx slapd

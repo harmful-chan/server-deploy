@@ -1,1 +1,1 @@
-$S systemctl stop mongodb nginx 
+$S systemctl stop mongodb nginx slapd
