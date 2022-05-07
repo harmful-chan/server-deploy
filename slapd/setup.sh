@@ -13,7 +13,7 @@ if [ "$OPENSSL_BUILD" == "true" ]; then
         tar -xvf $TAR_DIR/openssl-1.1.1g.tar.gz -C $TAR_DIR
     fi
     cd $TAR_DIR/openssl-1.1.1g
-    ./configure --prefix=/usr/local/openssl
+    ./config --prefix=/usr/local/openssl
     make -j2 
     $S make install
     $S mv /usr/bin/openssl /usr/bin/openssl.bak
