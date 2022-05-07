@@ -58,16 +58,22 @@ fi
 e "LDAP_UPDATE_CONFIG" "$LDAP_UPDATE_CONFIG"
 if [ "$LDAP_UPDATE_CONFIG" == "true" ]; then
     # 初始化配置文件。slapd.ldif 修改了，管理员账户号：Manager,dc=hans,dc=org，密码：123456
+    $S rm -rf /etc/openldap/slapd.d/*
     $S slapadd -n 0 -F /etc/openldap/slapd.d -l $(dirname $BASH_SOURCE)/slapd.ldif    
 fi
 
 e "LDAP_UPDATE_SERVICE" "$LDAP_UPDATE_SERVICE"
 if [ "$LDAP_UPDATE_SERVICE" == "true" ]; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/sladp.service $SERVICE_DIR/sladp.service
+    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/sladp.service $SERVICE_DIR/slapd.service
 fi
 
 e "LDAP_LOAD_DEMO" "$LDAP_LOAD_DEMO"
 if [ "$LDAP_LOAD_DEMO" == "true" ]; then
+
+    if [ "$(systemctl is-active slapd)" != "active" ]; then
+        $S systemctl start slapd
+    fi
+
     # 创建两条记录
     # 根 hans.org
     # 管理员 Manager.hans.org
@@ -75,4 +81,6 @@ if [ "$LDAP_LOAD_DEMO" == "true" ]; then
     # 导入员工信息
     $S sldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/group.ldif 
     $S sldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/people.ldif 
+
+    $S systemctl stop slapd
 fi
