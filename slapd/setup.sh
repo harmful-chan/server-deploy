@@ -77,10 +77,10 @@ if [ "$LDAP_LOAD_DEMO" == "true" ]; then
     # 创建两条记录
     # 根 hans.org
     # 管理员 Manager.hans.org
-    $S sldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/entry.ldif 
+    $S slapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/entry.ldif 
     # 导入员工信息
-    $S sldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/group.ldif 
-    $S sldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/people.ldif 
+    $S slapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/group.ldif 
+    $S slapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/people.ldif 
 
     $S systemctl stop slapd
 fi
