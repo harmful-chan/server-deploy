@@ -3,8 +3,31 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
+
+e "OPENSSL_BUILD" "$OPENSSL_BUILD"
+if [ "$OPENSSL_BUILD" == "true" ]; then
+    if [ ! -e $TAR_DIR/openssl-1.1.1g.tar.gz ]; then
+        wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz -P $TAR_DIR
+    fi
+    if [ ! -d $TAR_DIR/openssl-1.1.1g ]; then
+        tar -xvf $TAR_DIR/openssl-1.1.1g.tar.gz -C $TAR_DIR
+    fi
+    cd $TAR_DIR/openssl-1.1.1g
+    ./configure --prefix=/usr/local/openssl
+    make -j2 
+    $S make install
+    $S mv /usr/bin/openssl /usr/bin/openssl.bak
+    $S ln -sf /usr/local/openssl/bin/openssl /usr/bin/openssl
+    if [ $(tail -n1 /etc/ld.so.conf) != "/usr/local/openssl/lib" ]; then
+        echo "/usr/local/openssl/lib" >>  /etc/ld.so.conf 
+    fi
+    $S ldconfig -v
+    cd -
+fi
+
 e "LDAP_MAKE" "$LDAP_MAKE"
 if [ "$LDAP_MAKE" == "true" ]; then
+
     if [ ! -d $TAR_DIR/$LDAP_NAME ]; then
         git clone --depth 1 https://git.openldap.org/openldap/$LDAP_NAME.git $TAR_DIR/$LDAP_NAME
     fi
