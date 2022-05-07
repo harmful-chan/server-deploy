@@ -8,7 +8,7 @@ preinstall wget curl gcc make
 
 source nginx/setup.sh
 source mongodb/setup.sh
-source ldap/setup.sh
+source slapd/setup.sh
 
 SERVICE=""
 if [ "$NGINX_RESTART" == "true" ]; then
