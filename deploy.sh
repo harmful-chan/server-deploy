@@ -4,7 +4,7 @@ set -e
 
 source base.sh
 
-preinstall wget curl
+preinstall wget curl gcc make 
 
 source nginx/setup.sh
 source mongodb/setup.sh
