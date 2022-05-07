@@ -11,7 +11,7 @@ if [ "$NGINX_MAKE" == "true" ]; then
         wget http://nginx.org/download/$NGINX_NAME.tar.gz -P $TAR_DIR
     fi
     if [ ! -d $TAR_DIR/$NGINX_NAME ]; then
-        tar -xvf $NGINX_NAME.tar.gz -c $TAR_DIR
+        tar -xvf $NGINX_NAME.tar.gz -C $TAR_DIR
     fi
     cd $TAR_DIR/$NGINX_NAME
     ./configure \
