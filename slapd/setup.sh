@@ -50,8 +50,8 @@ if [ "$LDAP_INSTALL" == "true" ]; then
         $S systemctl stop slapd
     fi
     $S make install
-    $S mkdir -f /etc/openldap/slapd.d
-    $S mkdir -f /var/lib/openldap/data
+    $S mkdir -p /etc/openldap/slapd.d
+    $S mkdir -p /var/lib/openldap/data
     cd -
 fi
 
