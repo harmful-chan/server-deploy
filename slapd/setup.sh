@@ -18,7 +18,7 @@ if [ "$OPENSSL_BUILD" == "true" ]; then
     $S make install
     $S mv /usr/bin/openssl /usr/bin/openssl.bak
     $S ln -sf /usr/local/openssl/bin/openssl /usr/bin/openssl
-    if [ $(tail -n1 /etc/ld.so.conf) != "/usr/local/openssl/lib" ]; then
+    if [ "$(tail -n1 /etc/ld.so.conf)" != "/usr/local/openssl/lib" ]; then
         echo "/usr/local/openssl/lib" >>  /etc/ld.so.conf 
     fi
     $S ldconfig -v
