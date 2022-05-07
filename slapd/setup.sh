@@ -64,7 +64,7 @@ fi
 
 e "LDAP_UPDATE_SERVICE" "$LDAP_UPDATE_SERVICE"
 if [ "$LDAP_UPDATE_SERVICE" == "true" ]; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/sladp.service $SERVICE_DIR/slapd.service
+    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/slapd.service $SERVICE_DIR/slapd.service
 fi
 
 e "LDAP_LOAD_DEMO" "$LDAP_LOAD_DEMO"
