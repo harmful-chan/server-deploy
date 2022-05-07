@@ -6,13 +6,14 @@ source $(dirname $BASH_SOURCE)/../base.sh
 
 e "OPENSSL_BUILD" "$OPENSSL_BUILD"
 if [ "$OPENSSL_BUILD" == "true" ]; then
-    if [ ! -e $TAR_DIR/openssl-1.1.1g.tar.gz ]; then
+    if [ ! -e $TAR_DIR/openssl-1.1.1.tar.gz ]; then
         wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz -P $TAR_DIR
     fi
-    if [ ! -d $TAR_DIR/openssl-1.1.1g ]; then
-        tar -xvf $TAR_DIR/openssl-1.1.1g.tar.gz -C $TAR_DIR
+    if [ ! -d $TAR_DIR/openssl-1.1.1 ]; then
+        tar -xvf $TAR_DIR/openssl-1.1.1.tar.gz -C $TAR_DIR
     fi
-    cd $TAR_DIR/openssl-1.1.1g
+    $S rm -rf /usr/local/openssl
+    cd $TAR_DIR/openssl-1.1.1
     ./config --prefix=/usr/local/openssl
     make -j2 
     $S make install
