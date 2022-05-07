@@ -22,7 +22,8 @@ function info(){
     echo -e "\033[34m [INFO] \033[0m $@"
 }
 function preinstall()
-{
+{   
+    lsb_release -a || preinstall_yum lsb_release || preinstall_apt lsb_release
     DistribuID=$(lsb_release -is)
     if [ "$DistribuID" == "CentOS" ]; then
         preinstall_yum $@
