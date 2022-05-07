@@ -7,7 +7,7 @@ source $(dirname $BASH_SOURCE)/../base.sh
 e "OPENSSL_BUILD" "$OPENSSL_BUILD"
 if [ "$OPENSSL_BUILD" == "true" ]; then
     if [ ! -e $TAR_DIR/openssl-1.1.1.tar.gz ]; then
-        wget https://www.openssl.org/source/openssl-1.1.1g.tar.gz -P $TAR_DIR
+        wget https://www.openssl.org/source/openssl-1.1.1.tar.gz -P $TAR_DIR
     fi
     if [ ! -d $TAR_DIR/openssl-1.1.1 ]; then
         tar -xvf $TAR_DIR/openssl-1.1.1.tar.gz -C $TAR_DIR
