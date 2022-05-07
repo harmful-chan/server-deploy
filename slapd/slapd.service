@@ -4,6 +4,7 @@ After=syslog.target network-online.target
 Requires=network-online.target
 
 [Service]
+Type=forking
 ExecStart=/libexec/slapd -F /etc/openldap/slapd.d
 ExecReload=/bin/kill -s QUIT $MAINPID
 ExecReload=/libexec/slapd -F /etc/openldap/slapd.d
