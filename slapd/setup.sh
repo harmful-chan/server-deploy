@@ -23,7 +23,7 @@ if [ "$LDAP_INSTALL" == "true" ]; then
     fi
     $S make install
     $S mkdir -f /etc/openldap/slapd.d
-    $S mkdir -f /var/openldap/data
+    $S mkdir -f /var/lib/openldap/data
     cd -
 fi
 

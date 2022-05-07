@@ -29,7 +29,7 @@ olcPidFile: /var/run/slapd.pid
 dn: cn=module,cn=config
 objectClass: olcModuleList
 cn: module
-olcModulepath:	/lib/libexec/openldap
+olcModulepath:	/libexec/openldap
 olcModuleload:	back_mdb.la
 #olcModuleload:	back_ldap.la
 #olcModuleload:	back_passwd.la
@@ -98,7 +98,7 @@ olcRootPW: {SSHA}qNO4l4aIK6aU6JIMcMGe3ZZIzxjuMwi6
 # The database directory MUST exist prior to running slapd AND 
 # should only be accessible by the slapd and slap tools.
 # Mode 700 recommended.
-olcDbDirectory:	/var/openldap/data
+olcDbDirectory:	/var/lib/openldap/data
 # Indices to maintain
 olcDbIndex: objectClass eq
 
