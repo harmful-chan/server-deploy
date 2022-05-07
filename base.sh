@@ -13,10 +13,10 @@ fi
 
 if [  x"$RELEASE" == x ];then 
     lsb_release -a || preinstall_yum redhat-lsb || preinstall_apt lsb_release
-    if [ "$(lsb_release -is)" == "CentOS"]; then
+    if [ "$(lsb_release -is)" == "CentOS" ]; then
         RELEASE=$(lsb_release -rs)
         RELEASE=rhel${RELEASE:0:1}0
-    elif [ "$(lsb_release -is)" == "Ubuntu"]; then
+    elif [ "$(lsb_release -is)" == "Ubuntu" ]; then
         RELEASE=$(lsb_release -rs)
         RELEASE=ubuntu${RELEASE//./}
     fi
