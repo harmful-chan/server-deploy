@@ -11,6 +11,18 @@ if [  x"$SERVICE_DIR" == x ];then
     SERVICE_DIR=${SERVICE_DIR%/*}
 fi
 
+if [  x"$RELEASE" == x ];then 
+    lsb_release -a || preinstall_yum redhat-lsb || preinstall_apt lsb_release
+    if [ "$(lsb_release -is)" == "CentOS"]; then
+        RELEASE=$(lsb_release -rs)
+        RELEASE=rhel${RELEASE:0:1}0
+    elif [ "$(lsb_release -is)" == "Ubuntu"]; then
+        RELEASE=$(lsb_release -rs)
+        RELEASE=ubuntu${RELEASE//./}
+    fi
+fi
+
+
 function e(){
     if [ "$2" == "true" ]; then
         echo -e "\033[34m[env] \033[0m $1 \033[32m$2\033[0m"
@@ -23,7 +35,7 @@ function info(){
 }
 function preinstall()
 {   
-    lsb_release -a || preinstall_yum redhat-lsb || preinstall_apt lsb_release
+    
     DistribuID=$(lsb_release -is)
     if [ "$DistribuID" == "CentOS" ]; then
         preinstall_yum $@

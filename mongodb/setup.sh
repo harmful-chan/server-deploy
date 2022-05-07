@@ -2,6 +2,9 @@
 
 source $(dirname $BASH_SOURCE)/../base.sh
 
+
+
+
 e "MONGODB_INSTALL" "$MONGODB_INSTALL"
 if [ "$MONGODB_INSTALL" == "true" ]; then
     if [ ! -e $TAR_DIR/$MONGODB_NAME.tgz ]; then
@@ -17,6 +20,7 @@ if [ "$MONGODB_INSTALL" == "true" ]; then
     $S rm -rf /usr/local/mongodb
     $S cp -r $TAR_DIR/$MONGODB_NAME /usr/local/mongodb
     $S mkdir -p /var/{lib/mongodb,log/mongodb}
+    $S touch /var/log/mongodb/mongodb.log
 fi
 
 
