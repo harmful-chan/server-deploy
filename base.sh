@@ -1,7 +1,5 @@
 #!/bin/bash
 
-source .env
-
 if [ "$USER" != "root" ]; then
     S=sudo
 fi
@@ -72,3 +70,5 @@ function clean()
     array=`cat .env | sed -n -e '/[a-zA-Z].*=/p' | tr -d ' ' | grep -v -e ";" -e "^#" | cut -d'=' -f1 | uniq`
     unset ${array[@]}
 }
+
+source .env
