@@ -23,7 +23,7 @@ function info(){
 }
 function preinstall()
 {   
-    lsb_release -a || preinstall_yum lsb_release || preinstall_apt lsb_release
+    lsb_release -a || preinstall_yum redhat-lsb || preinstall_apt lsb_release
     DistribuID=$(lsb_release -is)
     if [ "$DistribuID" == "CentOS" ]; then
         preinstall_yum $@
