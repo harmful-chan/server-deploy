@@ -3,10 +3,10 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
-preinstall ca-certificates pcre-devel openssl openssl-devel
+preinstall_yum ca-certificates pcre-devel openssl openssl-devel
+preinstall_apt ca-certificates pcre-dev openssl openssl-dev
 
-e "NGINX_MAKE" "$NGINX_MAKE"
-if [ "$NGINX_MAKE" == "true" ]; then
+if istrue NGINX_MAKE; then
     if [ ! -e $TAR_DIR/$NGINX_NAME.tar.gz ]; then
         wget http://nginx.org/download/$NGINX_NAME.tar.gz -P $TAR_DIR
     fi
@@ -22,8 +22,7 @@ if [ "$NGINX_MAKE" == "true" ]; then
     cd -
 fi
 
-e "NGINX_INSTALL" "$NGINX_INSTALL"
-if [ "$NGINX_INSTALL" == "true" ]; then
+if istrue NGINX_INSTALL; then
     cd $TAR_DIR/$NGINX_NAME
     if [ "$(systemctl is-active nginx)" == "active" ]; then
         $S systemctl stop nginx
@@ -33,12 +32,10 @@ if [ "$NGINX_INSTALL" == "true" ]; then
     cd -
 fi
 
-e "NGINX_UPDATE_CONFIG" "$NGINX_UPDATE_CONFIG"
-if [ "$NGINX_UPDATE_CONFIG" == "true" ]; then
+if istrue NGINX_UPDATE_CONFIG; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.conf /usr/local/nginx/conf/nginx.conf
 fi
 
-e "NGINX_UPDATE_SERVICE" "$NGINX_UPDATE_SERVICE"
-if [ "$NGINX_UPDATE_SERVICE" == "true" ]; then
+if istrue NGINX_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.service $SERVICE_DIR/nginx.service
 fi

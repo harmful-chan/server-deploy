@@ -2,10 +2,7 @@
 
 source $(dirname $BASH_SOURCE)/../base.sh
 
-
-
-e "OPENSSL_BUILD" "$OPENSSL_BUILD"
-if [ "$OPENSSL_BUILD" == "true" ]; then
+if istrue OPENSSL_BUILD; then
     if [ ! -e $TAR_DIR/openssl-1.1.1.tar.gz ]; then
         wget https://www.openssl.org/source/openssl-1.1.1.tar.gz -P $TAR_DIR
     fi
@@ -26,9 +23,7 @@ if [ "$OPENSSL_BUILD" == "true" ]; then
     cd -
 fi
 
-e "LDAP_MAKE" "$LDAP_MAKE"
-if [ "$LDAP_MAKE" == "true" ]; then
-
+if istrue LDAP_MAKE; then
     if [ ! -d $TAR_DIR/$LDAP_NAME ]; then
         git clone --depth 1 https://git.openldap.org/openldap/$LDAP_NAME.git $TAR_DIR/$LDAP_NAME
     fi
@@ -43,8 +38,7 @@ if [ "$LDAP_MAKE" == "true" ]; then
     cd -
 fi
 
-e "LDAP_INSTALL" "$LDAP_INSTALL"
-if [ "$LDAP_INSTALL" == "true" ]; then
+if istrue LDAP_INSTALL; then
     cd $TAR_DIR/$LDAP_NAME
     if [ "$(systemctl is-active slapd)" == "active" ]; then
         $S systemctl stop slapd
@@ -55,21 +49,17 @@ if [ "$LDAP_INSTALL" == "true" ]; then
     cd -
 fi
 
-e "LDAP_UPDATE_CONFIG" "$LDAP_UPDATE_CONFIG"
-if [ "$LDAP_UPDATE_CONFIG" == "true" ]; then
+if istrue LDAP_UPDATE_CONFIG; then
     # 初始化配置文件。slapd.ldif 修改了，管理员账户号：Manager,dc=hans,dc=org，密码：123456
     $S rm -rf /etc/openldap/slapd.d/*
     $S slapadd -n 0 -F /etc/openldap/slapd.d -l $(dirname $BASH_SOURCE)/slapd.ldif    
 fi
 
-e "LDAP_UPDATE_SERVICE" "$LDAP_UPDATE_SERVICE"
-if [ "$LDAP_UPDATE_SERVICE" == "true" ]; then
+if istrue LDAP_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/slapd.service $SERVICE_DIR/slapd.service
 fi
 
-e "LDAP_LOAD_DEMO" "$LDAP_LOAD_DEMO"
-if [ "$LDAP_LOAD_DEMO" == "true" ]; then
-
+if istrue LDAP_LOAD_DEMO; then
     if [ "$(systemctl is-active slapd)" != "active" ]; then
         $S systemctl start slapd
     fi

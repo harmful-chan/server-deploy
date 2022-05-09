@@ -4,6 +4,7 @@ set -e
 
 source base.sh
 
+rm -f install.msg
 preinstall wget curl gcc make 
 
 source nginx/setup.sh
@@ -29,7 +30,11 @@ if [ -n "$SERVICE" ]; then
     $S systemctl restart $SERVICE
 fi
 
-
-
+#删除变量
+array=`cat .env | sed -n -e '/[a-zA-Z].*=/p' | tr -d ' ' | grep -v -e ";" -e "^#" | cut -d'=' -f1 | uniq`
+unset ${array[@]}
 unset SERVICE
-clean
+
+#删除函数
+array=`cat base.sh | sed -n -e '/function /p'  | cut  -d'(' -f1  | cut -d' ' -f2`
+unset -f ${array[@]}

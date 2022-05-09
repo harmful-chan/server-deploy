@@ -23,18 +23,24 @@ fi
 
 function e(){
     if [ "$2" == "true" ]; then
-        echo -e "\033[34m[env] \033[0m $1 \033[32m$2\033[0m"
+        echo -e "\033[34m[env]\033[0m $1 \033[32m$2\033[0m"
     elif  [ "$2" == "false" ]; then
-        echo -e "\033[34m[env] \033[0m $1 \033[31m$2\033[0m"
+        echo -e "\033[34m[env]\033[0m $1 \033[31m$2\033[0m"
     fi
 }
 function info(){
-    echo -e "\033[34m [INFO] \033[0m $@"
+    echo -e "\033[34m[INFO] \033[0m $@"
+}
+
+function istrue(){
+    eval e "$1"  "\$$1"
+    eval [ "\$$1" == "true" ] && return 0
+    return 1
 }
 function preinstall()
 {   
     
-    DistribuID=$(lsb_release -is)
+    [ x"$DistribuID" == x ] && DistribuID=$(lsb_release -is)
     if [ "$DistribuID" == "CentOS" ]; then
         preinstall_yum $@
         INSTALLER=${INSTALLER:=yum}
@@ -45,30 +51,27 @@ function preinstall()
         echo "系统未能识别，Distributor ID:$DistribuID"
         exit 1
     fi
-    unset DistribuID
 }
 
 function preinstall_apt()
 {
-    if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
-        $S apt-get -y  install $@
-    else
-        $S apt-get  install $@ >install.msg
+    if [ "$DistribuID" == "Ubuntu" ]; then
+        if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
+            $S apt-get -y  install $@
+        else
+            $S apt-get -y install $@ >>install.msg
+        fi
     fi
 }
 
 function preinstall_yum(){
-    if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
-        $S yum -y  install $@
-    else
-        $S yum -y  install $@ >install.msg
+    if [ "$DistribuID" == "CentOS" ]; then
+        if [ "$PACKAGE_INFO_SHOW" == "true" ]; then
+            $S yum -y  install $@
+        else
+            $S yum -y  install $@ >>install.msg
+        fi
     fi
-}
-
-function clean()
-{
-    array=`cat .env | sed -n -e '/[a-zA-Z].*=/p' | tr -d ' ' | grep -v -e ";" -e "^#" | cut -d'=' -f1 | uniq`
-    unset ${array[@]}
 }
 
 source .env

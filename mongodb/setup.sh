@@ -2,11 +2,7 @@
 
 source $(dirname $BASH_SOURCE)/../base.sh
 
-
-
-
-e "MONGODB_INSTALL" "$MONGODB_INSTALL"
-if [ "$MONGODB_INSTALL" == "true" ]; then
+if istrue MONGODB_INSTALL; then
     if [ ! -e $TAR_DIR/$MONGODB_NAME.tgz ]; then
         wget https://fastdl.mongodb.org/linux/$MONGODB_NAME.tgz -P $TAR_DIR
     fi
@@ -24,12 +20,10 @@ if [ "$MONGODB_INSTALL" == "true" ]; then
 fi
 
 
-e "MONGODB_UPDATE_CONFIG" "$MONGODB_UPDATE_CONFIG"
-if [ "$MONGODB_UPDATE_CONFIG" == "true" ]; then
+if istrue MONGODB_UPDATE_CONFIG; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/mongodb.conf /usr/local/mongodb/mongodb.conf
 fi
 
-e "MONGODB_UPDATE_SERVICE" "$MONGODB_UPDATE_SERVICE"
-if [ "$MONGODB_UPDATE_SERVICE" == "true" ]; then
+if istrue MONGODB_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/mongodb.service $SERVICE_DIR/mongodb.service
 fi
