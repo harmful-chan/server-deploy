@@ -22,20 +22,30 @@ fi
 
 
 function e(){
-    if [ "$2" == "true" ]; then
-        echo -e "\033[34m[env]\033[0m $1 \033[32m$2\033[0m"
-    elif  [ "$2" == "false" ]; then
-        echo -e "\033[34m[env]\033[0m $1 \033[31m$2\033[0m"
-    fi
+    for var in $@
+    do
+        printf "\033[34m[env]\033[0m "
+        eval printf "$var\ "
+        eval var=\$$var    # eval echo -e 不能变颜色
+        if [ "$var" == "true" ]; then
+            printf "\033[32m$var\033[0m"
+        elif [ "$var" == "false" ]; then
+            printf "\033[31m$var\033[0m"
+        fi
+        printf "\n"
+    done
 }
 function info(){
     echo -e "\033[34m[INFO] \033[0m $@"
 }
 
 function istrue(){
-    eval e "$1"  "\$$1"
-    eval [ "\$$1" == "true" ] && return 0
-    return 1
+    eval e $@
+    for var in $@
+    do
+        eval [ "\$$1" != "true" ] && return 1
+    done
+    return 0
 }
 function preinstall()
 {   

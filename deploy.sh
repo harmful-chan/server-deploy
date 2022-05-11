@@ -22,9 +22,7 @@ if [ "$LDAP_RESTART" == "true" ]; then
     SERVICE+=" mongodb"
 fi
 
-e "NGINX_RESTART" "$NGINX_RESTART"
-e "MONGODB_RESTART" "$MONGODB_RESTART"
-e "LDAP_RESTART" "$LDAP_RESTART"
+e NGINX_RESTART MONGODB_RESTART LDAP_RESTART
 $S systemctl daemon-reload
 if [ -n "$SERVICE" ]; then
     $S systemctl restart $SERVICE
