@@ -5,9 +5,9 @@ Requires=network-online.target
 
 [Service]
 Type=forking
-ExecStart=/libexec/slapd -F /etc/openldap/slapd.d
+ExecStart=/usr/local/openldap/libexec/slapd -F /etc/openldap/slapd.d
 ExecReload=/bin/kill -s QUIT $MAINPID
-ExecReload=/libexec/slapd -F /etc/openldap/slapd.d
+ExecReload=/usr/local/openldap/libexec/slapd -F /etc/openldap/slapd.d
 ExecStop=/bin/kill -s QUIT $MAINPID
 KillMode=control-group
 Restart=on-failure

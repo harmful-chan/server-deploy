@@ -39,6 +39,21 @@ function info(){
     echo -e "\033[34m[INFO] \033[0m $@"
 }
 
+# ret 解压地址 : $1 文件夹名 $2 包名，$3 下载地址
+function check() {
+    if [ ! -e $TAR_DIR/$2 ]; then
+        wget $3 -P $TAR_DIR
+    fi
+    if [ ! -d $TAR_DIR/$1 ]; then
+        tar -xvf $TAR_DIR/$2 -C $TAR_DIR
+    fi
+    echo  $TAR_DIR/$1
+}
+
+function isactive() {
+    return [ "$(systemctl is-active $1)" == "active" ]
+}
+
 function istrue(){
     eval e $@
     for var in $@

@@ -29,9 +29,9 @@ if istrue LDAP_MAKE; then
     fi
     cd $TAR_DIR/$LDAP_NAME
     if [ "$LDAP_CONF_OPENSS" == "true" ]; then
-        ./configure --prefix=/ CPPFLAGS="-I/usr/local/openssl/include"  LDFLAGS="-L/usr/local/openssl/lib"
+        ./configure --prefix=/usr/local/openldap CPPFLAGS="-I/usr/local/openssl/include"  LDFLAGS="-L/usr/local/openssl/lib"
     else
-        ./configure --prefix=/
+        ./configure --prefix=/usr/local/openldap
     fi
     make depend
     make -j2 
@@ -43,6 +43,7 @@ if istrue LDAP_INSTALL; then
     if [ "$(systemctl is-active slapd)" == "active" ]; then
         $S systemctl stop slapd
     fi
+    $S rm -rf /usr/local/openldap
     $S make install
     $S mkdir -p /etc/openldap/slapd.d
     $S mkdir -p /var/lib/openldap/data
