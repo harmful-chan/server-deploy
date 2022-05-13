@@ -8,7 +8,7 @@ rm -f install.msg
 preinstall wget curl gcc make 
 
 source nginx/setup.sh
-source mongodb/setup.sh
+source mongod/setup.sh
 source slapd/setup.sh
 
 SERVICE=""
@@ -16,10 +16,10 @@ if [ "$NGINX_RESTART" == "true" ]; then
     SERVICE+=" nginx"
 fi
 if [ "$MONGODB_RESTART" == "true" ]; then
-    SERVICE+=" mongodb"
+    SERVICE+=" mongod"
 fi
 if [ "$LDAP_RESTART" == "true" ]; then
-    SERVICE+=" mongodb"
+    SERVICE+=" slapd"
 fi
 
 e NGINX_RESTART MONGODB_RESTART LDAP_RESTART

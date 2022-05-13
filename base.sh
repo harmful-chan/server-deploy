@@ -51,7 +51,8 @@ function check() {
 }
 
 function isactive() {
-    return [ "$(systemctl is-active $1)" == "active" ]
+     [ "$(systemctl is-active $1)" == "active" ] || return 0
+     return 1
 }
 
 function istrue(){

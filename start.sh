@@ -1,1 +1,1 @@
-$S systemctl start mongodb nginx slapd
+sudo systemctl start mongod nginx slapd

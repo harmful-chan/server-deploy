@@ -5,6 +5,7 @@ Wants=network-online.target
 
 [Service]
 Type=forking
+PIDFile=/var/run/nginx.pid
 ExecStartPre=/usr/local/nginx/sbin/nginx -t
 ExecStart=/usr/local/nginx/sbin/nginx
 ExecReload=/usr/local/nginx/sbin/nginx -s reload
