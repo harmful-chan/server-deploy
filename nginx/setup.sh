@@ -3,8 +3,8 @@
 source $(dirname $BASH_SOURCE)/../base.sh
 
 
-preinstall_yum ca-certificates pcre-devel openssl openssl-devel
-preinstall_apt ca-certificates pcre-dev openssl openssl-dev
+preinstall_yum ca-certificates pcre-devel openssl openssl-devel unzip
+preinstall_apt ca-certificates pcre-dev openssl openssl-dev unzip
 
 if istrue NGINX_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.service $SERVICE_DIR/nginx.service
@@ -25,7 +25,18 @@ if istrue NGINX_INSTALL; then
 fi
 
 if istrue NGINX_UPDATE_CONFIG; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.conf /usr/local/nginx/conf/nginx.conf
+    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/conf/* /usr/local/nginx/conf/
+fi
+
+
+if istrue NGINX_UPDATE_CERT; then
+    if [ ! -d /usr/local/nginx/conf/nginx/cert ]; then
+        $S mkdir -p /usr/local/nginx/conf/cert
+    fi
+
+    $S unzip -P 123456 cert/ldap.hfzs.store.zip -d /usr/local/nginx/conf/cert/
+    $S unzip -P 123456 cert/api.hfzs.store.zip -d /usr/local/nginx/conf/cert/
+    $S unzip -P 123456 cert/hfzs.store.zip -d /usr/local/nginx/conf/cert/
 fi
 
 

@@ -6,8 +6,8 @@
 ./install
 ```
 脚本通过环境变量来指定部署步骤，`.env`文件开头声明了可用的设置<br>
-脚本执行最后会自动调用`clean`函数会清除`.env`中定义的全部变量。<br>
-注意：请效仿 **install.sh**，**update.sh**..等。先定义`XXX_XXX=true`，然后执行**deploy.sh**
+脚本执行最后会自动清除`.env`中定义的全部变量。<br>
+注意：请效仿 **install.sh**，**update.sh**..等。先定义`XXX_XXX=true`，然后执行**setup.sh**
 
 ## Example
 example：源码安装nginx并运行
@@ -19,7 +19,7 @@ NGINX_UPDATE_CONFIG=true     # 配置文件连接到 ./nginx/nginx.conf
 NGINX_UPDATE_SERVICE=true    # 服务文件链接带 ./nginx/nginx.servce
 NGINX_RESTART=true           # 启动服务
 
-source deploy.sh
+source setup.sh
 ```
 
 

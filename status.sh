@@ -7,7 +7,7 @@ function pstatus()
 }
 
 
-SERVICE="slapd|nginx|mongod"
+SERVICE="slapd|nginx|mongod|php-fpm"
 OLD_IFS=$IFS
 IFS=' '
 ps=`sudo ps -aux | grep -E $SERVICE | grep -v 'grep'`

@@ -25,7 +25,7 @@ fi
 
 
 if istrue MONGOD_UPDATE_CONFIG; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/mongod.conf /usr/local/mongodb/mongod.conf
+    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/mongod.conf /usr/local/mongodb/mongod.conf
 fi
 
 

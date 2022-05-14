@@ -42,10 +42,10 @@ function info(){
 # ret 解压地址 : $1 文件夹名 $2 包名，$3 下载地址
 function check() {
     if [ ! -e $TAR_DIR/$2 ]; then
-        wget $3 -P $TAR_DIR
+        wget $3 -P $TAR_DIR 2>&1 >/dev/null
     fi
     if [ ! -d $TAR_DIR/$1 ]; then
-        tar -xvf $TAR_DIR/$2 -C $TAR_DIR
+        tar -xvf $TAR_DIR/$2 -C $TAR_DIR 2>&1 >/dev/null
     fi
     echo  $TAR_DIR/$1
 }
@@ -63,6 +63,15 @@ function istrue(){
     done
     return 0
 }
+
+function ist(){
+    for var in $@
+    do
+        eval [ "\$$1" != "true" ] && return 1
+    done
+    return 0
+}
+
 function preinstall()
 {   
     

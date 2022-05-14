@@ -1,1 +1,1 @@
-sudo systemctl start mongod nginx slapd
+sudo systemctl start mongod nginx slapd php-fpm
