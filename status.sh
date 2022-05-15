@@ -27,6 +27,6 @@ while read user pid cpu mem mens stime; do
     pstatus ${array[@]}
 done 
 
-unset ps pss nets ip name array
+unset ps pss nets ip name array SERVICE
 unset -f pstatus
 IFS=$OLD_IFS

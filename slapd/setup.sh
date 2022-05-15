@@ -63,3 +63,15 @@ if istrue LDAP_LOAD_DEMO; then
 
     $S systemctl stop slapd
 fi
+
+if istrue LDAP_PHPLDAPADMIN; then
+    $S preinstall phpldapadmin
+
+    # 修改 
+    # $servers->setValue('login','anon_bind',false);    不允许匿名访问
+    # $servers->setValue('login','allowed_dns',array('cn=Manager,dc=hans,dc=org'));     只允许管理员登录
+    # $servers->setValue('server','base',array('dc=hans,dc=org'));    设置根记录
+    $S cp config.php /etc/phpldapadmin/config.php
+
+fi
+
