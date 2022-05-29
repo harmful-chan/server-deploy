@@ -1,6 +1,7 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../base.sh
+source $(dirname $BASH_SOURCE)/../bin/base.sh
+source $(dirname $BASH_SOURCE)/.env
 
 if istrue LDAP_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/slapd.service $SERVICE_DIR/slapd.service
@@ -24,11 +25,10 @@ if istrue OPENSSL_BUILD; then
 fi
 
 if istrue LDAP_INSTALL; then
-    if [ ! -d $TAR_DIR/$LDAP_NAME ]; then
-        git clone --depth 1 https://git.openldap.org/openldap/$LDAP_NAME.git $TAR_DIR/$LDAP_NAME
-    fi
-    cd $TAR_DIR/$LDAP_NAME
-    if [ "$LDAP_CONF_OPENSS" == "true" ]; then
+
+    cd `check git $LDAP_NAME https://git.openldap.org/openldap/$LDAP_NAME.git  --depth 1` || exit $?
+
+    if ist LDAP_CONF_OPENSS; then
         ./configure --prefix=/usr/local/openldap CPPFLAGS="-I/usr/local/openssl/include"  LDFLAGS="-L/usr/local/openssl/lib"
     else
         ./configure --prefix=/usr/local/openldap
@@ -48,7 +48,7 @@ fi
 if istrue LDAP_UPDATE_CONFIG; then
     # 初始化配置文件。slapd.ldif 修改了，管理员账户号：Manager,dc=hans,dc=org，密码：123456
     $S rm -rf /etc/openldap/slapd.d/*
-    $S slapadd -n 0 -F /etc/openldap/slapd.d -l $(dirname $BASH_SOURCE)/slapd.ldif    
+    $S slapadd -n 0 -F /etc/openldap/slapd.d -l $(dirname $BASH_SOURCE)/conf/slapd.ldif    
 fi
 
 if istrue LDAP_LOAD_DEMO; then
@@ -56,22 +56,10 @@ if istrue LDAP_LOAD_DEMO; then
     # 创建两条记录
     # 根 hans.org
     # 管理员 Manager.hans.org
-    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/entry.ldif 
+    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/conf/entry.ldif 
     # 导入员工信息
-    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/group.ldif 
-    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/people.ldif 
+    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/conf/group.ldif 
+    $S ldapadd -x -D "cn=Manager,dc=hans,dc=org" -w 123456 -f $(dirname $BASH_SOURCE)/conf/people.ldif 
 
     $S systemctl stop slapd
 fi
-
-if istrue LDAP_PHPLDAPADMIN; then
-    $S preinstall phpldapadmin
-
-    # 修改 
-    # $servers->setValue('login','anon_bind',false);    不允许匿名访问
-    # $servers->setValue('login','allowed_dns',array('cn=Manager,dc=hans,dc=org'));     只允许管理员登录
-    # $servers->setValue('server','base',array('dc=hans,dc=org'));    设置根记录
-    $S cp config.php /etc/phpldapadmin/config.php
-
-fi
-

@@ -1,1 +1,0 @@
-$S systemctl restart stop mongod nginx slapd php-fpm

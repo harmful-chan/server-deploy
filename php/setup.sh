@@ -1,9 +1,10 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../base.sh
+source $(dirname $BASH_SOURCE)/../bin/base.sh
+source $(dirname $BASH_SOURCE)/.env
 
 preinstall_yum libxml2-devel openssl-devel libcurl-devel libjpeg-devel libpng-devel pcre-devel libxslt-devel bzip2-devel
-preinstall_apt libxml2-dev libcurl4-openssl-dev curl-dev libjpeg-dev libpng-dev libpcre3-dev libxslt1-dev libbbz2-dev
+preinstall_apt libxml2-dev libcurl4-openssl-dev libcurl-dev libjpeg-dev libpng-dev libpcre3-dev libxslt1-dev libbz2-dev
 
 
 if istrue FREETYPE_BUILD; then
@@ -16,7 +17,7 @@ fi
 
 
 if istrue PHP_INSTALL; then
-    cd `check $PHP_NAME $PHP_NAME.tar.gz https://www.php.net/distributions/$PHP_NAME.tar.gz` || exit $?
+    cd `check tar.gz $PHP_NAME $PHP_NAME.tar.gz https://www.php.net/distributions/$PHP_NAME.tar.gz` || exit $?
     if ist PHP_CONF_LDAP; then
         $S ln -sf  /usr/local/openldap/lib /usr/local/openldap/lib64
     fi
@@ -39,16 +40,14 @@ if istrue PHP_INSTALL; then
 fi
 
 
-if istrue PHP_FPM_UPDATE_CONFIG; then
+if istrue PHP_UPDATE_CONFIG; then
+
+    cd `check $PHP_NAME`
     # 原 php.ini-development 
     # 修改 cgi.fix_pathinfo=0 允许文件不存在时nginx正常转发请求到 fpm
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/php.ini /usr/local/php/lib/php.ini 
-    # 原 /usr/local/php/etc/php-fpm.conf.default 
-    # 修改 pid = /var/run/php-fpm.pid
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/php-fpm.conf /usr/local/php/etc/php-fpm.conf
-    # 原 /usr/local/php/etc/php-fpm.d/www.conf.default
-    # 修改 user = www-data，group = www-data
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/www.conf /usr/local/php/etc/php-fpm.d/www.conf
+    $S cp -f php.ini-development /usr/local/php/lib/php.ini 
+    $S sed -i 's/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/'  /usr/local/php/lib/php.ini 
+    cd -
 
     # 添加 用户/组 www-data
     groups www-data 
@@ -61,8 +60,4 @@ if istrue PHP_FPM_UPDATE_CONFIG; then
     fi
 
 
-fi
-
-if istrue PHP_FPM_UPDATE_SERVICE; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/php-fpm.service $SERVICE_DIR/php-fpm.service
 fi

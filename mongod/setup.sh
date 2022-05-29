@@ -1,22 +1,16 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../base.sh
+source $(dirname $BASH_SOURCE)/../bin/base.sh
+source $(dirname $BASH_SOURCE)/.env
 
 if istrue MONGOD_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/mongod.service $SERVICE_DIR/mongod.service
 fi
 
 if istrue MONGOD_INSTALL; then
-    if [ ! -e $TAR_DIR/$MONGOD_NAME.tgz ]; then
-        wget https://fastdl.mongodb.org/linux/$MONGOD_NAME.tgz -P $TAR_DIR
-    fi
-    if [ ! -d $TAR_DIR/$MONGOD_NAME.tgz ]; then
-        tar -zxvf $TAR_DIR/$MONGOD_NAME.tgz -C $TAR_DIR
-    fi
 
-    if [ "$(systemctl is-active mongodb)" == "active" ]; then
-        $S systemctl stop mongodb
-    fi
+    `check tgz $MONGOD_NAME $MONGOD_NAME.tar.gz https://fastdl.mongodb.org/linux/$MONGOD_NAME.tgz` || exit $?
+    isactive mongod ||  $S systemctl stop mongod
     $S rm -rf /usr/local/mongodb
     $S cp -r $TAR_DIR/$MONGOD_NAME /usr/local/mongodb
     $S mkdir -p /var/{lib/mongodb,log/mongodb}
@@ -27,5 +21,3 @@ fi
 if istrue MONGOD_UPDATE_CONFIG; then
     $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/mongod.conf /usr/local/mongodb/mongod.conf
 fi
-
-
