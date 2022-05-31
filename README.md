@@ -41,12 +41,11 @@ Linux `/etc/hosts`
 + `openvpn`：vpn连接服务端
 
 ```shell
-服务 : 依赖组件
-
+         服务 : 依赖组件
 phpldapadmin : nginx slapd php
-	 mongodb :
-	   bind9 :
-	 openvpn :
+     mongodb :
+       bind9 :
+     openvpn :
 ```
 
 
@@ -108,11 +107,11 @@ node5      IN  A     192.168.1.15
 + **集群连接**
 
 ```shell
-									node1 (centos8.5 虚拟机)
-									node1.sexhansc.com
-						/	    	192.168.1.11(vpn内网)
-									192.168.137.11(hyper-v内网)
-										    ...
+                                    node1 (centos8.5 虚拟机)
+                                    node1.sexhansc.com
+                       /            192.168.1.11(vpn内网)
+                                    192.168.137.11(hyper-v内网)
+                                            ...
 server (ubuntu18)                   node3
 ctl.sexhansc.com        _           node3.sexhansc.com
 124.71.46.212                       192.168.1.13
@@ -146,7 +145,6 @@ ctl.sexhansc.com        _           node3.sexhansc.com
 
 
 ## <可用配置>
-
 
 
 + bin<br>
