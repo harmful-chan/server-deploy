@@ -16,7 +16,7 @@ if istrue FREETYPE_BUILD; then
 fi
 
 
-if istrue PHP_INSTALL; then
+if istrue PHP_INSTALL_SRC; then
     cd `check tar.gz $PHP_NAME $PHP_NAME.tar.gz https://www.php.net/distributions/$PHP_NAME.tar.gz` || exit $?
     if ist PHP_CONF_LDAP; then
         $S ln -sf  /usr/local/openldap/lib /usr/local/openldap/lib64
@@ -50,14 +50,6 @@ if istrue PHP_UPDATE_CONFIG; then
     cd -
 
     # 添加 用户/组 www-data
-    groups www-data 
-    if [ $? -ne 0 ]; then
-        groupadd www-data
-    fi
-    id www-data 
-    if [ $? -ne 0 ]; then
-        useradd -g www-data www-data
-    fi
-
-
+    groups www-data ||  groupadd www-data
+    id www-data || useradd -g www-data www-data
 fi

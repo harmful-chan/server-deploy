@@ -24,7 +24,7 @@ if istrue OPENSSL_BUILD; then
     cd -
 fi
 
-if istrue LDAP_INSTALL; then
+if istrue LDAP_INSTALL_SRC; then
 
     cd `check git $LDAP_NAME https://git.openldap.org/openldap/$LDAP_NAME.git  --depth 1` || exit $?
 

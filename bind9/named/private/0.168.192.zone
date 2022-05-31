@@ -1,0 +1,6 @@
+$TTL 10 
+@   IN  SOA     ns.sexhansc.com.  1148706823.qq.com. ( 1 3h 1h 1w 1h )
+        NS      ns.sexhansc.com.
+
+10  IN  PTR   ns.sexhansc.com.
+10  IN  PTR   ctl.sexhansc.com.

@@ -1,0 +1,95 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 5 (0x5)
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=cn, ST=GuangDong, L=GuangZhou, O=sexhansc.com, OU=hans, CN=sexhansc.com CA/name=EasyRSA/emailAddress=hans@sexhansc.com
+        Validity
+            Not Before: May 31 11:54:25 2022 GMT
+            Not After : May 28 11:54:25 2032 GMT
+        Subject: C=cn, ST=GuangDong, L=GuangZhou, O=sexhansc.com, OU=hans, CN=node4/name=EasyRSA/emailAddress=hans@sexhansc.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:c1:3a:4b:be:61:08:2c:a6:2f:33:24:fc:f1:d6:
+                    0a:38:fd:cf:03:ef:6e:1f:66:51:0d:65:01:13:c4:
+                    3d:cb:3e:f6:35:35:fa:e9:f5:22:c3:21:ba:d9:a0:
+                    54:ee:1a:b8:db:f1:90:c7:ff:5e:89:31:71:fd:b2:
+                    00:d6:68:9c:ea:c2:04:ed:d2:d1:44:61:a5:e9:51:
+                    2f:dd:7d:9e:c6:21:e9:74:c8:4a:e7:75:f5:ec:32:
+                    04:48:aa:57:31:60:3c:7a:57:5b:01:e0:10:18:f1:
+                    34:09:f8:3b:f7:80:9b:c0:9f:c4:04:b0:b5:33:c9:
+                    a8:6c:fe:b4:47:5c:80:02:5c:3d:62:c0:a9:3d:db:
+                    13:24:ea:7f:24:ad:aa:09:74:93:43:e2:22:cf:64:
+                    4a:fd:40:18:b6:f4:f6:a3:3b:66:0a:23:18:0c:36:
+                    69:60:f9:37:3b:4a:64:6d:55:a1:43:91:ea:b8:23:
+                    46:c0:16:35:28:98:00:00:50:89:16:87:17:e4:ca:
+                    0d:42:99:fc:de:70:de:6f:7f:97:e1:49:7c:3f:8f:
+                    37:c0:3f:b4:12:36:09:53:96:0f:48:b6:d8:1f:2b:
+                    d6:ae:a8:51:48:f9:1a:8b:94:ff:8f:00:93:61:0e:
+                    9b:04:76:05:cd:9b:da:98:2f:c9:03:42:b1:3a:8c:
+                    07:17
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                55:1A:2E:32:DD:72:49:2A:DF:F5:07:EE:F3:9B:FC:4A:A8:64:58:95
+            X509v3 Authority Key Identifier: 
+                keyid:2F:E1:40:ED:6B:6B:47:0D:E9:CC:4D:A1:5A:4C:B9:41:05:F6:11:8A
+                DirName:/C=cn/ST=GuangDong/L=GuangZhou/O=sexhansc.com/OU=hans/CN=sexhansc.com CA/name=EasyRSA/emailAddress=hans@sexhansc.com
+                serial:0B:C0:46:C8:62:CA:47:63:5B:BD:97:67:83:D8:C9:44:BE:88:28:7D
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+         bd:f9:9b:4b:ad:d7:9b:18:45:8b:2b:7c:bd:4f:d8:93:4a:64:
+         b8:7e:b7:22:7a:06:dc:98:4f:93:21:84:23:dd:78:72:e8:4b:
+         eb:69:ac:c0:4a:45:f7:93:ab:2c:06:4d:ed:ca:6d:c5:20:9c:
+         a8:64:d1:82:b1:6c:9d:9b:16:90:ad:51:e4:a6:da:2f:d2:8d:
+         a2:b7:fd:bd:e2:69:be:a0:34:80:a1:5e:e6:8f:3d:df:11:41:
+         40:c9:45:66:08:9b:2a:be:55:f7:f8:43:ff:53:e9:f7:22:a4:
+         6e:5d:4f:8d:61:b3:b8:06:d3:e7:16:d1:af:16:59:19:02:39:
+         c3:08:02:77:2c:ba:9a:23:2a:bc:2c:12:51:b8:e6:86:9e:b6:
+         6f:32:2f:7d:5e:25:42:d3:99:e2:2b:05:37:d5:40:37:00:51:
+         a6:80:14:65:f5:a4:ee:c1:cb:ac:56:21:74:4b:1e:7a:5e:64:
+         28:e7:bd:5b:c3:df:82:f1:9a:70:6c:81:72:88:c5:30:e4:07:
+         7e:23:81:3c:28:2b:3d:d4:db:78:9f:9b:15:da:00:11:a2:fa:
+         72:c6:20:16:82:36:60:04:ed:a4:01:df:f2:fb:d5:2e:33:3e:
+         94:53:5e:e4:73:0d:29:22:d8:86:fa:0e:51:f7:89:df:d1:81:
+         85:7b:67:5f
+-----BEGIN CERTIFICATE-----
+MIIFMjCCBBqgAwIBAgIBBTANBgkqhkiG9w0BAQsFADCBqTELMAkGA1UEBhMCY24x
+EjAQBgNVBAgTCUd1YW5nRG9uZzESMBAGA1UEBxMJR3VhbmdaaG91MRUwEwYDVQQK
+EwxzZXhoYW5zYy5jb20xDTALBgNVBAsTBGhhbnMxGDAWBgNVBAMTD3NleGhhbnNj
+LmNvbSBDQTEQMA4GA1UEKRMHRWFzeVJTQTEgMB4GCSqGSIb3DQEJARYRaGFuc0Bz
+ZXhoYW5zYy5jb20wHhcNMjIwNTMxMTE1NDI1WhcNMzIwNTI4MTE1NDI1WjCBnzEL
+MAkGA1UEBhMCY24xEjAQBgNVBAgTCUd1YW5nRG9uZzESMBAGA1UEBxMJR3Vhbmda
+aG91MRUwEwYDVQQKEwxzZXhoYW5zYy5jb20xDTALBgNVBAsTBGhhbnMxDjAMBgNV
+BAMTBW5vZGU0MRAwDgYDVQQpEwdFYXN5UlNBMSAwHgYJKoZIhvcNAQkBFhFoYW5z
+QHNleGhhbnNjLmNvbTCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAME6
+S75hCCymLzMk/PHWCjj9zwPvbh9mUQ1lARPEPcs+9jU1+un1IsMhutmgVO4auNvx
+kMf/Xokxcf2yANZonOrCBO3S0URhpelRL919nsYh6XTISud19ewyBEiqVzFgPHpX
+WwHgEBjxNAn4O/eAm8CfxASwtTPJqGz+tEdcgAJcPWLAqT3bEyTqfyStqgl0k0Pi
+Is9kSv1AGLb09qM7ZgojGAw2aWD5NztKZG1VoUOR6rgjRsAWNSiYAABQiRaHF+TK
+DUKZ/N5w3m9/l+FJfD+PN8A/tBI2CVOWD0i22B8r1q6oUUj5GouU/48Ak2EOmwR2
+Bc2b2pgvyQNCsTqMBxcCAwEAAaOCAWswggFnMAkGA1UdEwQCMAAwLQYJYIZIAYb4
+QgENBCAWHkVhc3ktUlNBIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQU
+VRouMt1ySSrf9Qfu85v8SqhkWJUwgekGA1UdIwSB4TCB3oAUL+FA7WtrRw3pzE2h
+Wky5QQX2EYqhga+kgawwgakxCzAJBgNVBAYTAmNuMRIwEAYDVQQIEwlHdWFuZ0Rv
+bmcxEjAQBgNVBAcTCUd1YW5nWmhvdTEVMBMGA1UEChMMc2V4aGFuc2MuY29tMQ0w
+CwYDVQQLEwRoYW5zMRgwFgYDVQQDEw9zZXhoYW5zYy5jb20gQ0ExEDAOBgNVBCkT
+B0Vhc3lSU0ExIDAeBgkqhkiG9w0BCQEWEWhhbnNAc2V4aGFuc2MuY29tghQLwEbI
+YspHY1u9l2eD2MlEvogofTATBgNVHSUEDDAKBggrBgEFBQcDAjALBgNVHQ8EBAMC
+B4AwDQYJKoZIhvcNAQELBQADggEBAL35m0ut15sYRYsrfL1P2JNKZLh+tyJ6BtyY
+T5MhhCPdeHLoS+tprMBKRfeTqywGTe3KbcUgnKhk0YKxbJ2bFpCtUeSm2i/SjaK3
+/b3iab6gNIChXuaPPd8RQUDJRWYImyq+Vff4Q/9T6fcipG5dT41hs7gG0+cW0a8W
+WRkCOcMIAncsupojKrwsElG45oaetm8yL31eJULTmeIrBTfVQDcAUaaAFGX1pO7B
+y6xWIXRLHnpeZCjnvVvD34LxmnBsgXKIxTDkB34jgTwoKz3U23ifmxXaABGi+nLG
+IBaCNmAE7aQB3/L71S4zPpRTXuRzDSki2Ib6DlH3id/RgYV7Z18=
+-----END CERTIFICATE-----

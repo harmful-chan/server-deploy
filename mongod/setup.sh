@@ -4,10 +4,10 @@ source $(dirname $BASH_SOURCE)/../bin/base.sh
 source $(dirname $BASH_SOURCE)/.env
 
 if istrue MONGOD_UPDATE_SERVICE; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/mongod.service $SERVICE_DIR/mongod.service
+    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/mongod.service $SERVICE_DIR/mongod.service
 fi
 
-if istrue MONGOD_INSTALL; then
+if istrue MONGOD_INSTALL_PKG; then
 
     `check tgz $MONGOD_NAME $MONGOD_NAME.tar.gz https://fastdl.mongodb.org/linux/$MONGOD_NAME.tgz` || exit $?
     isactive mongod ||  $S systemctl stop mongod

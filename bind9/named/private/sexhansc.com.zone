@@ -1,0 +1,19 @@
+$TTL 10 
+@          IN  SOA   ns.sexhansc.com.   1148706823.qq.com. ( 1 3h 1h 1w 1h );
+           IN  NS    ns.sexhansc.com.
+
+; 公网
+@          IN  A     124.71.46.212
+ns         IN  A     124.71.46.212
+ldap       IN  A     124.71.46.212
+test       IN  A     124.71.46.212
+zabbix     IN  A     124.71.46.212
+vpn        IN  A     124.71.46.212
+
+; 集群内网
+ctl        IN  A     192.168.0.10
+node1      IN  A     192.168.1.11
+node2      IN  A     192.168.1.12
+node3      IN  A     192.168.1.13
+node4      IN  A     192.168.1.14
+node5      IN  A     192.168.1.15

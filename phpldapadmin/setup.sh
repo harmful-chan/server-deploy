@@ -3,7 +3,7 @@
 source $(dirname $BASH_SOURCE)/../bin/base.sh
 source $(dirname $BASH_SOURCE)/.env
 
-if istrue PHPLDAPADMIN_INSTALL; then
+if istrue PHPLDAPADMIN_INSTALL_BIN; then
     preinstall phpldapadmin
 fi
 

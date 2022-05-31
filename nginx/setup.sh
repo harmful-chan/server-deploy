@@ -10,7 +10,7 @@ if istrue NGINX_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.service $SERVICE_DIR/nginx.service
 fi
 
-if istrue NGINX_INSTALL; then
+if istrue NGINX_INSTALL_SRC; then
     cd `check tar.gz $NGINX_NAME $NGINX_NAME.tar.gz http://nginx.org/download/$NGINX_NAME.tar.gz` || exit $?
     ./configure \
         --with-http_ssl_module \
@@ -48,7 +48,7 @@ server {
 }
 EOF
     done <$(dirname $BASH_SOURCE)/tables.txt
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/conf/* /usr/local/nginx/conf/
+    $S cp -rf $(pwd)/$(dirname $BASH_SOURCE)/conf/* /usr/local/nginx/conf/
 fi
 
 

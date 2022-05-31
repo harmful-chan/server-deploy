@@ -1,0 +1,19 @@
+[Unit]
+Description=bind9 DNS monitor maneger
+Documentation=https://www.isc.org/bind/
+After=network.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/bind9/named.pid
+ExecStart=/usr/local/bind9/sbin/named -u named -c /etc/bind9/named.conf
+ExecStop=/bin/kill -INT $MAINPID
+ExecReload=/bin/sh -c '/usr/local/bind9/sbin/rndc reload > /dev/null 2>&1 || /bin/kill -HUP $MAINPID'
+ExecStop=/bin/sh -c '/usr/local/bind9/sbin/rndc stop > /dev/null 2>&1 || /bin/kill -TERM $MAINPID'
+KillMode=process
+Restart=always
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target
+Alias=bind9.service

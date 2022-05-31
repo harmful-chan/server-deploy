@@ -9,15 +9,15 @@ rm -f install.msg
 preinstall wget curl gcc make git
 setgithubdns
 
-source ../nginx/setup.sh
-source ../mongod/setup.sh
-source ../slapd/setup.sh
-source ../php/setup.sh
-source ../phpldapadmin/setup.sh
+#../bind9/setup.sh
 
+for dir in $( find .. -name 'setup.sh' | grep -v '../bin/setup.sh')
+do
+    source $dir
+done
 
 #删除变量
-for d in $(find . -name '.env') 
+for d in $( find .. -name '.env')
 do 
     unset $(cat $d | cut -d'=' -f1 | sed '/^#/d;/^$/d')
 done
