@@ -55,28 +55,28 @@ function info(){
 # ret         : tar.gz|tgz     $2 文件夹名 $3 包名，    $4 下载地址
 # ret         : git            $2 文件夹名 $3 下载地址  $4 git参数 
 function check() {
-    if [[ $# -gt 2 && ! -d $TAR_DIR/$2 ]]; then
+    if [[ $# -gt 2 && ! -d $SRC_DIR/$2 ]]; then
         case $1 in 
-            tar.gz)
+            tar.gz|tar.xz)
                 [ ! -e $TAR_DIR/$3 ] && wget $4 -P $TAR_DIR 2>&1 >/dev/null
-                tar -xvf $TAR_DIR/$3 -C $TAR_DIR 2>&1 >/dev/null
+                tar -xvf $TAR_DIR/$3 -C $SRC_DIR 2>&1 >/dev/null
                 ;;
             tgz)
                 [ ! -e $TAR_DIR/$3 ] && wget $4 -P $TAR_DIR 2>&1 >/dev/null
-                tar -zxvf $TAR_DIR/$3 -C $TAR_DIR 2>&1 >/dev/null
+                tar -zxvf $TAR_DIR/$3 -C $SRC_DIR 2>&1 >/dev/null
                 ;;
             git)
                 
-                git clone $3 $TAR_DIR/$2 ${@:4}
+                git clone $3 $SRC_DIR/$2 ${@:4}
                 ;;           
             *)
                 ;;
         esac
-        echo $TAR_DIR/$2
-    elif [[ $# -gt 2 && -d $TAR_DIR/$2 ]]; then
-        echo $TAR_DIR/$2
-    elif [[ $# -eq 1 && -d $TAR_DIR/$1 ]]; then
-        echo  $TAR_DIR/$1
+        echo $SRC_DIR/$2
+    elif [[ $# -gt 2 && -d $SRC_DIR/$2 ]]; then
+        echo $SRC_DIR/$2
+    elif [[ $# -eq 1 && -d $SRC_DIR/$1 ]]; then
+        echo  $SRC_DIR/$1
     fi
 }
 

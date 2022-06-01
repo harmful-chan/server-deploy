@@ -11,9 +11,10 @@ setgithubdns
 
 #../bind9/setup.sh
 
-for dir in $( find .. -name 'setup.sh' | grep -v '../bin/setup.sh')
+for setup in $( find .. -name 'setup.sh' | grep -v '../bin/setup.sh')
 do
-    source $dir
+    D=$(dirname $setup)
+    source $setup
 done
 
 #删除变量
