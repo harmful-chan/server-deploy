@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../bin/base.sh
-source $(dirname $BASH_SOURCE)/.env
+source $D/../bin/base.sh
+source $D/.env
 
 preinstall_yum libxml2-devel openssl-devel libcurl-devel libjpeg-devel libpng-devel pcre-devel libxslt-devel bzip2-devel
 preinstall_apt libxml2-dev libcurl4-openssl-dev libcurl-dev libjpeg-dev libpng-dev libpcre3-dev libxslt1-dev libbz2-dev

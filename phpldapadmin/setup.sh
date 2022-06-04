@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../bin/base.sh
-source $(dirname $BASH_SOURCE)/.env
+source $D/../bin/base.sh
+source $D/.env
 
 if istrue PHPLDAPADMIN_INSTALL_BIN; then
     preinstall phpldapadmin
@@ -18,12 +18,12 @@ if istrue PHPLDAPADMIN_UPDATE_CONFIG; then
     echo -e '$-0i\n$servers->setValue('"'server'"','"'base'"',array('"'dc=hans,dc=org'"'));\n.\nw\n' | $S ex -s /etc/phpldapadmin/config.php
 
     $S mkdir -p /usr/local/php/etc/phpldapadmin/conf
-    $S cp $(dirname $BASH_SOURCE)/conf/fpm.conf $(dirname $BASH_SOURCE)/conf/www.conf /usr/local/php/etc/phpldapadmin/conf/
-    $S cp $(dirname $BASH_SOURCE)/conf/nginx-phpldapadmin.conf /usr/local/nginx/conf/nginx.conf.d/
+    $S cp $D/conf/fpm.conf $D/conf/www.conf /usr/local/php/etc/phpldapadmin/conf/
+    $S cp $D/conf/nginx-phpldapadmin.conf /usr/local/nginx/conf/nginx.conf.d/
 
 
 fi
 
 if istrue PHPLDAPADMIN_UPDATE_SERVICE; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/phpldapadmin.service $SERVICE_DIR/phpldapadmin.service
+    $S ln -sf $(pwd)/$D/phpldapadmin.service $SERVICE_DIR/phpldapadmin.service
 fi

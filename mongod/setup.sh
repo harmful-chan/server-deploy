@@ -1,10 +1,10 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../bin/base.sh
-source $(dirname $BASH_SOURCE)/.env
+source $D/../bin/base.sh
+source $D/.env
 
 if istrue MONGOD_UPDATE_SERVICE; then
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/mongod.service $SERVICE_DIR/mongod.service
+    $S cp -f $(pwd)/$D/mongod.service $SERVICE_DIR/mongod.service
 fi
 
 if istrue MONGOD_INSTALL_PKG; then
@@ -19,5 +19,5 @@ fi
 
 
 if istrue MONGOD_UPDATE_CONFIG; then
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/mongod.conf /usr/local/mongodb/mongod.conf
+    $S cp -f $(pwd)/$D/mongod.conf /usr/local/mongodb/mongod.conf
 fi

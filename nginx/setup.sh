@@ -1,13 +1,13 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../bin/base.sh
-source $(dirname $BASH_SOURCE)/.env
+source $D/../bin/base.sh
+source $D/.env
 
 preinstall_yum ca-certificates pcre-devel openssl openssl-devel unzip
 preinstall_apt ca-certificates openssl unzip
 
 if istrue NGINX_UPDATE_SERVICE; then
-    $S ln -sf $(pwd)/$(dirname $BASH_SOURCE)/nginx.service $SERVICE_DIR/nginx.service
+    $S ln -sf $(pwd)/$D/nginx.service $SERVICE_DIR/nginx.service
 fi
 
 if istrue NGINX_INSTALL_SRC; then
@@ -28,9 +28,9 @@ fi
 if istrue NGINX_UPDATE_CONFIG; then
     $S mkdir -p /usr/local/nginx/conf/nginx.conf.d
 
-    rm -rf $(dirname $BASH_SOURCE)/conf/not_ssl.conf
+    rm -rf $D/conf/not_ssl.conf
     while read prot dns hostport localport; do   
-        cat >>$(dirname $BASH_SOURCE)/conf/not_ssl.conf <<-EOF
+        cat >>$D/conf/not_ssl.conf <<-EOF
 server {
     listen              $hostport ssl;
     server_name         $dns;
@@ -47,8 +47,8 @@ server {
     }
 }
 EOF
-    done <$(dirname $BASH_SOURCE)/tables.txt
-    $S cp -rf $(pwd)/$(dirname $BASH_SOURCE)/conf/* /usr/local/nginx/conf/
+    done <$D/tables.txt
+    $S cp -rf $(pwd)/$D/conf/* /usr/local/nginx/conf/
 fi
 
 

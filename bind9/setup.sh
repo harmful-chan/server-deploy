@@ -1,7 +1,7 @@
 #!/bin/bash
 
-source $(dirname $BASH_SOURCE)/../bin/base.sh
-source $(dirname $BASH_SOURCE)/.env
+source $D/../bin/base.sh
+source $D/.env
 
 if istrue BIND9_INSTALL_SRC; then
 
@@ -26,10 +26,10 @@ if istrue BIND9_UPDATE_CONFIG; then
     id named || $S useradd  -r  -u  53   -g  53  named
     
     $S mkdir -p /var/named/private/ 
-    $S cp -arf $(dirname $BASH_SOURCE)/named/* /var/named/
+    $S cp -arf $D/named/* /var/named/
 
     $S mkdir -p /etc/bind9/named.conf.d
-    $S cp -arf $(dirname $BASH_SOURCE)/conf/* /etc/bind9/
+    $S cp -arf $D/conf/* /etc/bind9/
 
     $S mkdir -p /var/named/data
     $S mkdir -p /var/log/bind9 
@@ -39,7 +39,6 @@ if istrue BIND9_UPDATE_CONFIG; then
 
     # 默认用named用户启动，配置为640，named:named 权限
     $S chown -R named.named /usr/local/bind9/ /etc/bind9/ /var/named/ /var/log/bind9/ /var/run/bind9/  
-    #$S chmod -R 755 /etc/bind9 /var/named
 
     # 检查配置
     /usr/local/bind9/sbin/named-checkzone  sexhansc.com  /var/named/private/sexhansc.com.zone
@@ -48,5 +47,5 @@ if istrue BIND9_UPDATE_CONFIG; then
 fi
 
 if istrue BIND9_UPDATE_SERVICE; then
-    $S cp -f $(pwd)/$(dirname $BASH_SOURCE)/bind9.service $SERVICE_DIR/bind9.service
+    $S cp -f $(pwd)/$D/bind9.service $SERVICE_DIR/bind9.service
 fi

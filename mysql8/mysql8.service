@@ -1,0 +1,16 @@
+[Unit]
+Description=MySQL8 Server
+After=network.target
+After=syslog.target
+
+[Service]
+Type=forking
+PIDFile=/var/run/mysql8/mysqld.pid
+ExecStart=/usr/local/mysql8/support-files/mysql.server start
+ExecStop=/usr/local/mysql8/support-files/mysql.server stop
+ExecReload=/usr/local/mysql8/support-files/mysql.server reload
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+Alias=mysql8.service
