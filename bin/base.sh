@@ -24,7 +24,7 @@ fi
 function ist(){
     for var in $@
     do
-        eval [ "\$$1" != "true" ] && return 1
+        eval [ "\$$var" != "true" ] && return 1
     done
     return 0
 }
@@ -33,7 +33,7 @@ function ist(){
 function e(){
     for var in $@
     do
-        if ist $@; then
+        if ist $var; then
             printf "\033[34m[set]\033[0m "
             eval printf "$var\ "
             eval var=\$$var    # eval echo -e 不能变颜色
@@ -66,7 +66,7 @@ function check() {
                 tar -zxvf $TAR_DIR/$3 -C $SRC_DIR 2>&1 >/dev/null
                 ;;
             git)
-                
+                echo "git clone $3 $SRC_DIR/$2 ${@:4}"
                 git clone $3 $SRC_DIR/$2 ${@:4}
                 ;;           
             *)
@@ -81,8 +81,10 @@ function check() {
 }
 
 function isactive() {
-     [ "$($S systemctl is-active $1)" == "active" ] || return 0
-     return 1
+    if `$S systemctl is-active $1 2>&1 >/dev/null`; then
+        return 0
+    fi
+    return 1
 }
 
 function istrue(){
@@ -144,5 +146,14 @@ function setgithubdns()
         $S echo "192.30.255.113    github.com"  >>/etc/hosts
         ping -c 1 -w 1 github.com || echo "连接github失败" && exit 1
     fi
+}
+
+# 获取 0-1000 内可用的组id或用户id
+# ret 可用id: $1 group|passwd 
+function vaildID()
+{
+        local A=$(getent $1|sort -n -t: -k3|cut -d: -f3 | grep -E ^[0-9]\{1,3\}$ | tail -n1 )
+        let "A++"
+        echo $A
 }
 

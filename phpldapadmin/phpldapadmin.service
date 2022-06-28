@@ -4,8 +4,8 @@ After=syslog.target network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/phpldapadmin/fpm.pid
-ExecStart=/usr/local/php/sbin/php-fpm -y /usr/local/php/etc/phpldapadmin/conf/fpm.conf
+PIDFile=/var/run/phpldapadmin-php-fpm.pid
+ExecStart=/usr/local/php/sbin/php-fpm -y /etc/phpldapadmin/php-fpm.conf
 ExecReload=/bin/kill -s USR2 $MAINPID
 ExecStop=/bin/kill -s QUIT $MAINPID
 PrivateTmp=true

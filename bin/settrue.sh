@@ -6,6 +6,6 @@ for server in ${@:3}
 do
     name=$(echo $server | tr a-z A-Z)
     eval ${name}_${acti}_${filetype}=true
-    #eval echo ${name}_${acti}_${filetype}=\$${name}_${acti}_${filetype}
+    # eval echo ${name}_${acti}_${filetype}=\$${name}_${acti}_${filetype}
 done
 source setup.sh

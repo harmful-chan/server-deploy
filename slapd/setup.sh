@@ -7,26 +7,9 @@ if istrue LDAP_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$D/slapd.service $SERVICE_DIR/slapd.service
 fi
 
-if istrue OPENSSL_BUILD; then
+if istrue LDAP_COMPILE_SRC; then
 
-    cd `check openssl-1.1.1 openssl-1.1.1.tar.gz https://www.openssl.org/source/openssl-1.1.1.tar.gz` || exit $?
-    ./config --prefix=/usr/local/openssl
-    make -j2 
-    $S rm -rf /usr/local/openssl
-    $S make install
-    $S mv /usr/bin/openssl /usr/bin/openssl.bak    
-    $S ln -sf /usr/local/openssl/bin/openssl /usr/bin/openssl
-    # 重新加载动态库
-    if [ "$(tail -n1 /etc/ld.so.conf)" != "/usr/local/openssl/lib" ]; then
-        echo "/usr/local/openssl/lib" >>  /etc/ld.so.conf 
-    fi
-    $S ldconfig -v
-    cd -
-fi
-
-if istrue LDAP_INSTALL_SRC; then
-
-    cd `check git $LDAP_NAME https://git.openldap.org/openldap/$LDAP_NAME.git  --depth 1` || exit $?
+    cd `check git openldap https://git.openldap.org/openldap/openldap.git  --depth 1`
 
     if ist LDAP_CONF_OPENSS; then
         ./configure --prefix=/usr/local/openldap CPPFLAGS="-I/usr/local/openssl/include"  LDFLAGS="-L/usr/local/openssl/lib"
@@ -35,17 +18,20 @@ if istrue LDAP_INSTALL_SRC; then
     fi
     make depend
     make -j2 
+    cd -
+fi
 
-    isactive slapd ||  $S systemctl stop slapd
-
+if istrue LDAP_INSTALL_SRC; then
+    cd `check openldap ` 
+    isactive slapd &&  $S systemctl stop slapd
     $S rm -rf /usr/local/openldap
     $S make install
-    $S mkdir -p /etc/openldap/slapd.d
-    $S mkdir -p /var/lib/openldap/data
     cd -
 fi
 
 if istrue LDAP_UPDATE_CONFIG; then
+    $S mkdir -p /etc/openldap/slapd.d
+    $S mkdir -p /var/lib/openldap/data
     # 初始化配置文件。slapd.ldif 修改了，管理员账户号：Manager,dc=hans,dc=org，密码：123456
     $S rm -rf /etc/openldap/slapd.d/*
     $S slapadd -n 0 -F /etc/openldap/slapd.d -l $D/conf/slapd.ldif    

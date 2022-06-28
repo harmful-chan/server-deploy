@@ -1,0 +1,19 @@
+[Unit]
+Description=Zabbix Server
+After=syslog.target
+After=network.target mysql8.service
+
+[Service]
+User=zabbix
+Group=zabbix
+Type=forking
+Restart=on-failure
+PIDFile=/var/run/zabbix_server.pid
+KillMode=control-group
+ExecStart=/usr/local/zabbix6/sbin/zabbix_server -c /usr/local/zabbix6/etc/zabbix_server.conf
+ExecStop=/bin/kill -SIGTERM $MAINPID
+RestartSec=10s
+TimeoutSec=0
+
+[Install]
+WantedBy=multi-user.target

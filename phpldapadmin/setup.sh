@@ -17,9 +17,9 @@ if istrue PHPLDAPADMIN_UPDATE_CONFIG; then
     echo -e '$-0i\n$servers->setValue('"'login'"','"'allowed_dns'"',array('"'cn=Manager,dc=hans,dc=org'"'));\n.\nw\n' | $S ex -s /etc/phpldapadmin/config.php
     echo -e '$-0i\n$servers->setValue('"'server'"','"'base'"',array('"'dc=hans,dc=org'"'));\n.\nw\n' | $S ex -s /etc/phpldapadmin/config.php
 
-    $S mkdir -p /usr/local/php/etc/phpldapadmin/conf
-    $S cp $D/conf/fpm.conf $D/conf/www.conf /usr/local/php/etc/phpldapadmin/conf/
-    $S cp $D/conf/nginx-phpldapadmin.conf /usr/local/nginx/conf/nginx.conf.d/
+
+    $S cp -f $D/conf/{php-fpm.conf,phpldapadmin.conf} /etc/phpldapadmin/
+    $S cp -f $D/conf/phpldapadmin-nginx.conf /usr/local/nginx/conf/nginx.conf.d/
 
 
 fi

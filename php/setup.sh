@@ -8,7 +8,7 @@ preinstall_apt libxml2-dev libcurl4-openssl-dev libcurl-dev libjpeg-dev libpng-d
 
 
 if istrue FREETYPE_BUILD; then
-    cd `check freetype-2.4.10 freetype-2.4.10.tar.gz http://mirror.ossplanet.net/nongnu/freetype/freetype-old/freetype-2.4.10.tar.gz` || exit $?
+    cd `check freetype-2.4.10 freetype-2.4.10.tar.gz http://mirror.ossplanet.net/nongnu/freetype/freetype-old/freetype-2.4.10.tar.gz`
     ./configure --prefix=/usr/local/freetype
     $S rm -rf /usr/local/freetype
     make -j2 && $S make install
@@ -16,8 +16,8 @@ if istrue FREETYPE_BUILD; then
 fi
 
 
-if istrue PHP_INSTALL_SRC; then
-    cd `check tar.gz $PHP_NAME $PHP_NAME.tar.gz https://www.php.net/distributions/$PHP_NAME.tar.gz` || exit $?
+if istrue PHP_COMPILE_SRC; then
+    cd `check tar.gz php-7.2.20 php-7.2.20.tar.gz https://www.php.net/distributions/php-7.2.20.tar.gz` 
     if ist PHP_CONF_LDAP; then
         $S ln -sf  /usr/local/openldap/lib /usr/local/openldap/lib64
     fi
@@ -33,9 +33,13 @@ if istrue PHP_INSTALL_SRC; then
         --enable-mbstring --enable-opcache --enable-pcntl --enable-shmop --enable-soap \
         --enable-sockets --enable-sysvsem --enable-sysvshm --enable-xml --enable-zip
     make -j2 
+    cd -
+fi
+
+if istrue PHP_INSTALL_SRC; then
+    cd `check php-7.2.20 `
     $S rm -rf /usr/local/php
     $S make install
-    $S cp sapi/fpm/php-fpm /usr/local/bin    
     cd -
 fi
 

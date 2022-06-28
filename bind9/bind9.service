@@ -5,7 +5,7 @@ After=network.target
 
 [Service]
 Type=forking
-PIDFile=/var/run/bind9/named.pid
+PIDFile=/var/run/named.pid
 ExecStart=/usr/local/bind9/sbin/named -u named -c /etc/bind9/named.conf
 ExecStop=/bin/kill -INT $MAINPID
 ExecReload=/bin/sh -c '/usr/local/bind9/sbin/rndc reload > /dev/null 2>&1 || /bin/kill -HUP $MAINPID'

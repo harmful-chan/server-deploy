@@ -3,25 +3,28 @@
 source $D/../bin/base.sh
 source $D/.env
 
-preinstall_yum ca-certificates pcre-devel openssl openssl-devel unzip
-preinstall_apt ca-certificates openssl unzip
 
 if istrue NGINX_UPDATE_SERVICE; then
     $S ln -sf $(pwd)/$D/nginx.service $SERVICE_DIR/nginx.service
 fi
 
-if istrue NGINX_INSTALL_SRC; then
-    cd `check tar.gz $NGINX_NAME $NGINX_NAME.tar.gz http://nginx.org/download/$NGINX_NAME.tar.gz` || exit $?
+if istrue NGINX_COMPILE_SRC; then
+    preinstall_yum ca-certificates pcre-devel openssl openssl-devel unzip
+    preinstall_apt ca-certificates openssl unzip
+
+    cd `check tar.gz nginx-1.20.2 nginx-1.20.2.tar.gz http://nginx.org/download/nginx-1.20.2.tar.gz`
     ./configure \
         --with-http_ssl_module \
         --with-stream \
         --with-stream_ssl_module
     make -j2 
+    cd -
+fi
 
-    isactive nginx || $S systemctl stop nginx
+if istrue NGINX_INSTALL_SRC; then
+    isactive nginx && $S systemctl stop nginx
     $S rm -rf /usr/local/nginx
     $S make install
-    $S mkdir -p /usr/local/nginx/conf/nginx.conf.d
     cd -
 fi
 
